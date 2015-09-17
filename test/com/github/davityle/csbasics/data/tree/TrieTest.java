@@ -10,10 +10,10 @@ public class TrieTest {
     public void testAdd() throws Exception {
         Trie root = new Trie();
 
-        root.add("yellow");
+        root.add("Yellow");
         root.add("green");
-        root.add("purple");
-        root.add("puse");
+        root.add("purPLE");
+        root.add("PUSE");
 
         assertTrue(root.has("yellow"));
         assertTrue(root.has("green"));

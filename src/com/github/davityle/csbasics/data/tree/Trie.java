@@ -1,8 +1,5 @@
 package com.github.davityle.csbasics.data.tree;
 
-/**
- * lowercase only, array backed, trie
- */
 public class Trie {
 
     private static final int ALPHABET_SIZE = 26;
@@ -23,15 +20,13 @@ public class Trie {
     }
 
     public boolean has(String s) {
-        if(s.length() == 0)
+        if (s.length() == 0)
             return isWordEnd;
         int index = getIndex(s.charAt(0));
-        if(children[index] == null)
-            return false;
-        return children[index].has(s.substring(1));
+        return children[index] != null && children[index].has(s.substring(1));
     }
 
     private int getIndex(char c) {
-        return c - 'a';
+        return Character.toLowerCase(c) - 'a';
     }
 }
