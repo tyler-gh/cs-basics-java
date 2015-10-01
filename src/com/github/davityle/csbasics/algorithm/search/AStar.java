@@ -35,7 +35,16 @@ public class AStar {
 
         @Override
         public int compareTo(Node<T> n) {
-            return (int) (estimatedLength - n.estimatedLength);
+            if(estimatedLength > n.estimatedLength)
+                return 1;
+            if(estimatedLength < n.estimatedLength)
+                return -1;
+            return 0;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%.4f - %s", estimatedLength, vertex);
         }
     }
 

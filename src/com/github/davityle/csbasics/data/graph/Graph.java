@@ -21,7 +21,7 @@ public class Graph {
             if(obj == null || !(obj instanceof AdjVertex))
                 return false;
             AdjVertex vert = (AdjVertex) obj;
-            return x == vert.x && y >= vert.y;
+            return x == vert.x && y == vert.y;
         }
 
         @Override

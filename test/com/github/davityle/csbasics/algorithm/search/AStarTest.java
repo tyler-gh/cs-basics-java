@@ -282,7 +282,11 @@ class GraphDrawing extends JPanel {
         }
 
         g2.setColor(Color.black);
-        vertices.stream().map(toPoint).forEach(p -> g2.fillOval(p.x - 2, p.y - 2, 4, 4));
+        vertices.stream().forEach(vertex -> {
+            Point p = toPoint.apply(vertex);
+            g2.fillOval(p.x - 2, p.y - 2, 4, 4);
+            g2.drawString(vertex.value, p.x, p.y);
+        });
     }
 
     @Override
