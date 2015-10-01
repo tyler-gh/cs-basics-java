@@ -120,13 +120,6 @@ public class AStarTest {
         SwingUtilities.invokeLater(AStarTest::createAndShowGui);
     }
 
-    private static void addCity(Graph.AdjVertex<String> city, Set<Graph.AdjVertex<String>> cities) {
-        if(!cities.contains(city)) {
-            cities.add(city);
-            city.adjacent.forEach(adj -> addCity(adj, cities));
-        }
-    }
-
     private static void createAndShowGui() {
         final int WIDTH = 800, HEIGHT = 800;
 
@@ -164,8 +157,6 @@ public class AStarTest {
             Function<JTextField, Double> dblVal = field -> Double.parseDouble(field.getText());
             Function<JTextField, Integer> intVal = field -> Integer.parseInt(field.getText());
 
-            Set<Graph.AdjVertex<String>> cities = new HashSet<>();
-
             Graph.AdjVertex<String> startCity = new Graph.AdjVertex<>(dblVal.apply(xMin), dblVal.apply(yMin), "");
             Graph.AdjVertex<String> endCity = new Graph.AdjVertex<>(dblVal.apply(xMax), dblVal.apply(yMax), "");
             final GeneratedGraph genGraph = generateCities(startCity, endCity, intVal.apply(blockSize), intVal.apply(density), new Random(intVal.apply(seed)));
@@ -173,11 +164,8 @@ public class AStarTest {
             final Optional<List<Graph.AdjVertex<String>>> optPath = AStar.shortestRoute(startCity, endCity);
 
             List<Graph.AdjVertex<String>> path = optPath.orElse(Collections.emptyList());
-            if(path.size() > 0) {
-                addCity(path.get(0), cities);
-            }
 
-            GraphDrawing graph = new GraphDrawing(cities, path, genGraph, WIDTH, HEIGHT);
+            GraphDrawing graph = new GraphDrawing(genGraph, path, WIDTH, HEIGHT);
             bottom.removeAll();
             bottom.add(graph);
             frame.invalidate();
@@ -225,6 +213,16 @@ class GeneratedGraph {
         this.yBlocks = yBlocks;
         this.cities = cities;
     }
+
+    public Set<Graph.AdjVertex<String>> getCities() {
+        Set<Graph.AdjVertex<String>> citySet = new HashSet<>();
+        for(List<Graph.AdjVertex<String>>[] blocks : cities) {
+            for(List<Graph.AdjVertex<String>> block : blocks) {
+                citySet.addAll(block);
+            }
+        }
+        return citySet;
+    }
 }
 
 
@@ -235,7 +233,7 @@ class GraphDrawing extends JPanel {
     private final GeneratedGraph genGraph;
     private final int minWidth, minHeight, maxWidth, maxHeight;
 
-    public GraphDrawing(Set<Graph.AdjVertex<String>> vertices, List<Graph.AdjVertex<String>> path, GeneratedGraph genGraph, final int width, final int height) {
+    public GraphDrawing(GeneratedGraph genGraph, List<Graph.AdjVertex<String>> path, final int width, final int height) {
         setSize(width, height);
 
         this.minWidth = (int) (getWidth() * .025);
@@ -244,7 +242,7 @@ class GraphDrawing extends JPanel {
         this.maxHeight = (int) (getHeight() * .925);
 
         this.genGraph = genGraph;
-        this.vertices = vertices;
+        this.vertices = genGraph.getCities();
         this.path = path;
     }
 
