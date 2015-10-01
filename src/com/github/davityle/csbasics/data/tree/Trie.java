@@ -7,9 +7,9 @@ public class Trie {
     private boolean isWordEnd;
 
     public void add(String s) {
-        if(s.length() > 0) {
+        if (s.length() > 0) {
             int index = getIndex(s.charAt(0));
-            if(children[index] == null) {
+            if (children[index] == null) {
                 children[index] = new Trie();
             }
             Trie child = children[index];

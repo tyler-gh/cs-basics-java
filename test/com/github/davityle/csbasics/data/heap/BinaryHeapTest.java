@@ -19,7 +19,7 @@ public class BinaryHeapTest {
         }
         int previous = Integer.MIN_VALUE;
         for(int i = 0; i < 10000; i++) {
-            assertTrue(previous <= heap.pop());
+            assertTrue(previous <= heap.poll());
         }
     }
 
@@ -33,11 +33,11 @@ public class BinaryHeapTest {
         heap.add(0);
 
         assertEquals(Integer.valueOf(0), heap.peek());
-        heap.pop();
+        heap.poll();
         assertEquals(Integer.valueOf(2), heap.peek());
-        heap.pop();
+        heap.poll();
         assertEquals(Integer.valueOf(3), heap.peek());
-        heap.pop();
+        heap.poll();
         assertEquals(Integer.valueOf(4), heap.peek());
 
     }
@@ -54,11 +54,11 @@ public class BinaryHeapTest {
         assertEquals(4, heap.getSize());
         heap.add(0);
         assertEquals(5, heap.getSize());
-        heap.pop();
-        heap.pop();
+        heap.poll();
+        heap.poll();
         assertEquals(3, heap.getSize());
-        heap.pop();
-        heap.pop();
+        heap.poll();
+        heap.poll();
         assertEquals(1, heap.getSize());
     }
 }

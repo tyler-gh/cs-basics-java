@@ -5,8 +5,8 @@ public class HashMapLinearProbing<T, R> extends HashMap<T, R> {
     protected int getIndex(T key) {
         int hash = key.hashCode();
         int index = modLength(hash);
-        while(table[index] != null && (table[index].getKey().hashCode() != hash || !table[index].getKey().equals(key))) {
-            if(++index == table.length) {
+        while (collision(index, hash, key)) {
+            if (++index == table.length) {
                 index = 0;
             }
         }

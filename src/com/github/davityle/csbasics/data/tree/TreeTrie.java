@@ -10,8 +10,8 @@ public class TreeTrie {
     }
 
     private void add(String s, TreeNode<Character> node) {
-        if(s.length() > 0) {
-            TreeNode<Character> child =  node.getNode(s.charAt(0)).orElseGet(() -> {
+        if (s.length() > 0) {
+            TreeNode<Character> child = node.getNode(s.charAt(0)).orElseGet(() -> {
                 TreeNode<Character> newNode = new TreeNode<>(s.charAt(0));
                 node.add(newNode);
                 return newNode;

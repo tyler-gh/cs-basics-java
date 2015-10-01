@@ -1,6 +1,6 @@
 package com.github.davityle.csbasics.data.map;
 
-import java.util.Optional;
+import com.github.davityle.csbasics.util.Maybe;
 
 @SuppressWarnings("unchecked")
 public abstract class HashMap<T, R> {
@@ -23,7 +23,7 @@ public abstract class HashMap<T, R> {
         this.fillRatio = fillRatio;
     }
 
-    public Optional<R> put(T key, R value) {
+    public Maybe<R> put(T key, R value) {
         int index = getIndex(key);
         Entry<T, R> current = table[index];
         table[index] = new Entry<>(key, value);
@@ -39,17 +39,17 @@ public abstract class HashMap<T, R> {
         }
 
         if (current != null) {
-            return Optional.ofNullable(current.getValue());
+            return Maybe.ofNullable(current.getValue());
         }
-        return Optional.empty();
+        return Maybe.empty();
     }
 
-    public Optional<R> get(T key) {
+    public Maybe<R> get(T key) {
         int index = getIndex(key);
         Entry<T, R> entry = table[index];
         if (entry != null)
-            return Optional.ofNullable(entry.getValue());
-        return Optional.empty();
+            return Maybe.ofNullable(entry.getValue());
+        return Maybe.empty();
     }
 
     public boolean has(T key) {
@@ -75,6 +75,9 @@ public abstract class HashMap<T, R> {
         return (((hash % table.length) + table.length) % table.length);
     }
 
+    protected boolean collision(int index, int hash, T key) {
+        return table[index] != null && (table[index].getKey().hashCode() != hash || !table[index].getKey().equals(key));
+    }
 
     protected abstract int getIndex(T key);
 

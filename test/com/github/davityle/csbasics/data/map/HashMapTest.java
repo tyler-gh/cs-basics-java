@@ -1,10 +1,10 @@
 package com.github.davityle.csbasics.data.map;
 
+import com.github.davityle.csbasics.util.Maybe;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -41,13 +41,13 @@ public class HashMapTest {
             Consumer<String> assertPutNull = key -> {
                 map.put(key, null);
                 assertFalse(map.has(key));
-                assertEquals(Optional.empty(), map.get(key));
+                assertEquals(Maybe.empty(), map.get(key));
             };
 
             BiConsumer<String, String> assertPut = (key, val) -> {
                 map.put(key, val);
                 assertTrue(map.has(key));
-                assertNotEquals(Optional.empty(), map.get(key));
+                assertNotEquals(Maybe.empty(), map.get(key));
                 assertEquals(val, map.get(key).get());
             };
 
@@ -81,7 +81,7 @@ public class HashMapTest {
             }
 
             for (java.util.HashMap.Entry<UUID, UUID> entry : javaMap.entrySet()) {
-                Optional<UUID> value = map.get(entry.getKey());
+                Maybe<UUID> value = map.get(entry.getKey());
                 assertTrue(value.isPresent());
                 assertEquals(value.get(), entry.getValue());
             }
@@ -156,7 +156,7 @@ public class HashMapTest {
             map.resizeTable();
 
             for (java.util.HashMap.Entry<UUID, UUID> entry : javaMap.entrySet()) {
-                Optional<UUID> value = map.get(entry.getKey());
+                Maybe<UUID> value = map.get(entry.getKey());
                 assertTrue(value.isPresent());
                 assertEquals(value.get(), entry.getValue());
             }

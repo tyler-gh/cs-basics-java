@@ -1,10 +1,12 @@
 package com.github.davityle.csbasics.data.heap;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 @SuppressWarnings("unchecked")
 public class BinaryHeap<T extends Comparable<T>> {
 
+    private final Comparator<T> comparator;
     private T[] heap;
     private int size;
 
@@ -13,7 +15,16 @@ public class BinaryHeap<T extends Comparable<T>> {
     }
 
     public BinaryHeap(int initialCapacity) {
-        heap = (T[]) new Comparable[initialCapacity];
+        this(initialCapacity, Comparable::compareTo);
+    }
+
+    public BinaryHeap(Comparator<T> comparator) {
+        this(2, comparator);
+    }
+
+    public BinaryHeap(int initialCapacity, Comparator<T> comparator) {
+        this.heap = (T[]) new Comparable[initialCapacity];
+        this.comparator = comparator;
     }
 
     public T peek() {
@@ -24,10 +35,14 @@ public class BinaryHeap<T extends Comparable<T>> {
         return size;
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     public void add(T value) {
         int index = size, parentIndex;
         // bubble up
-        while(index > 0 && value.compareTo(heap[(parentIndex = parentIndex(index))]) < 0) {
+        while(index > 0 && comparator.compare(value, heap[(parentIndex = parentIndex(index))]) < 0) {
             heap[index] = heap[parentIndex];
             index = parentIndex;
         }
@@ -38,13 +53,13 @@ public class BinaryHeap<T extends Comparable<T>> {
         }
     }
 
-    public T pop() {
+    public T poll() {
         T value = heap[0];
         T tmp = heap[--size];
 
         int index = 0, childIndex;
         // bubble down
-        while ((childIndex = lesserChildIndex(index)) != -1 && heap[childIndex].compareTo(tmp) < 0) {
+        while ((childIndex = lesserChildIndex(index)) != -1 && comparator.compare(heap[childIndex], tmp) < 0) {
             heap[index] = heap[childIndex];
             index = childIndex;
         }
@@ -58,7 +73,7 @@ public class BinaryHeap<T extends Comparable<T>> {
         if(fstChild >= size)
             return -1;
         int sndChild = kthChildIndex(ind, 2);
-        boolean second = sndChild < size && heap[sndChild].compareTo(heap[fstChild]) < 0;
+        boolean second = sndChild < size && comparator.compare(heap[sndChild], heap[fstChild]) < 0;
         return second ? sndChild : fstChild;
     }
 
