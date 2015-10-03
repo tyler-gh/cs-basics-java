@@ -1,16 +1,23 @@
 package com.github.davityle.csbasics.data.graph;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
-public class Graph {
+public interface Graph<T, V extends Graph.Vertex<T>> {
 
-    public static final class AdjVertex<T> {
+    void addVertex(V vertex);
+    void addVertices(Collection<V> vertices);
+    Set<V> getVertices();
+    void addEdge(V a, V b);
+    void addEdges(V vertex, Collection<V> vertices);
+    List<V> getAdjacentVertices(V vertex);
+
+    class Vertex<T> {
         public final double x, y;
         public final T value;
-        public final List<AdjVertex<T>> adjacent = new ArrayList<>();
 
-        public AdjVertex(double x, double y, T value) {
+        public Vertex(double x, double y, T value) {
             this.x = x;
             this.y = y;
             this.value = value;
@@ -18,9 +25,9 @@ public class Graph {
 
         @Override
         public boolean equals(Object obj) {
-            if(obj == null || !(obj instanceof AdjVertex))
+            if(!(obj instanceof Vertex))
                 return false;
-            AdjVertex vert = (AdjVertex) obj;
+            Vertex vert = (Vertex) obj;
             return x == vert.x && y == vert.y;
         }
 
