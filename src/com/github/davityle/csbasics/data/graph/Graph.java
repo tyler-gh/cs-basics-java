@@ -42,4 +42,17 @@ public interface Graph<T, V extends Graph.Vertex<T>> {
         }
     }
 
+    class Edge<T> {
+        public final Graph.Vertex<T> a, b;
+
+        public Edge(Graph.Vertex<T> a, Graph.Vertex<T> b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        @Override
+        public String toString() {
+            return "{" + a + ":" + b + "}";
+        }
+    }
 }

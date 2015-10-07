@@ -4,9 +4,6 @@ package com.github.davityle.csbasics.data.tree;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- *
- */
 public class TreeNode<T> {
 
     private final HashMap<T, TreeNode<T>> children = new HashMap<>();
@@ -66,7 +63,7 @@ public class TreeNode<T> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof TreeNode))
+        if (!(obj instanceof TreeNode))
             return false;
         TreeNode node = (TreeNode) obj;
         if (node.value == value)
@@ -93,6 +90,7 @@ public class TreeNode<T> {
         final Queue<TreeNode<T>> queue = new LinkedList<>();
 
         private BreadthIterator() {
+            queue.add(TreeNode.this);
             queue.addAll(TreeNode.this.children.values());
         }
 
@@ -113,6 +111,7 @@ public class TreeNode<T> {
         final Stack<TreeNode<T>> stack = new Stack<>();
 
         private DepthIterator() {
+            stack.push(TreeNode.this);
             addChildren(TreeNode.this);
         }
 

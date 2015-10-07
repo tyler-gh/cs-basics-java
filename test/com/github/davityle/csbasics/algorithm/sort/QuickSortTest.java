@@ -6,15 +6,12 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-/**
- *
- */
 public class QuickSortTest {
 
     @Test
     public void testSort() throws Exception {
         // for 100% line coverage
-        QuickSort q = new QuickSort();
+        new QuickSort();
 
         Integer[] array = new Integer[100];
         for(int i = 0; i < array.length; i++) {
@@ -26,7 +23,5 @@ public class QuickSortTest {
         for(int i = 0; i < array.length; i++) {
             assertEquals(Integer.valueOf(i), array[i]);
         }
-
-
     }
 }

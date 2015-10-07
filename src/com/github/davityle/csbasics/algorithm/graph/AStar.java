@@ -1,4 +1,4 @@
-package com.github.davityle.csbasics.algorithm.search;
+package com.github.davityle.csbasics.algorithm.graph;
 
 import com.github.davityle.csbasics.data.graph.Graph;
 import com.github.davityle.csbasics.data.heap.BinaryHeap;
@@ -27,7 +27,7 @@ public class AStar {
 
         @Override
         public boolean equals(Object obj) {
-            if(!(obj instanceof Node))
+            if (!(obj instanceof Node))
                 return false;
             Node n = (Node) obj;
             return vertex.equals(n.vertex);
@@ -35,9 +35,9 @@ public class AStar {
 
         @Override
         public int compareTo(Node<T, V> n) {
-            if(estimatedLength > n.estimatedLength)
+            if (estimatedLength > n.estimatedLength)
                 return 1;
-            if(estimatedLength < n.estimatedLength)
+            if (estimatedLength < n.estimatedLength)
                 return -1;
             return 0;
         }
@@ -54,9 +54,9 @@ public class AStar {
         Set<Node<T, V>> visited = new HashSet<>();
 
         priorityQueue.add(new Node<>(start, 0, 0, null));
-        while(!priorityQueue.isEmpty()) {
+        while (!priorityQueue.isEmpty()) {
             final Node<T, V> node = priorityQueue.poll();
-            if(visited.add(node)) {
+            if (visited.add(node)) {
                 for (V vertex : graph.getAdjacentVertices(node.vertex)) {
 
                     Node<T, V> nextNode = new Node<>(vertex, node.distance + length(node.vertex, vertex), length(vertex, end), node);
@@ -77,7 +77,7 @@ public class AStar {
 
     private static <T, V extends Graph.Vertex<T>> List<V> backTrace(Node<T, V> node) {
         List<V> route = new LinkedList<>();
-        while(node != null) {
+        while (node != null) {
             route.add(0, node.vertex);
             node = node.previous;
         }
