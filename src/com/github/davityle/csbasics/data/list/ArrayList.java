@@ -1,7 +1,7 @@
 package com.github.davityle.csbasics.data.list;
 
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.OptionalInt;
 
 @SuppressWarnings("unchecked")
 public class ArrayList<T> implements List<T> {
@@ -35,13 +35,13 @@ public class ArrayList<T> implements List<T> {
         return value;
     }
 
-    public Optional<Integer> indexOf(T value) {
+    public OptionalInt indexOf(T value) {
         for (int i = 0; i < size; i++) {
-            if (list[i].equals(value)) {
-                return Optional.of(i);
+            if (list[i] != null && list[i].equals(value)) {
+                return OptionalInt.of(i);
             }
         }
-        return Optional.empty();
+        return OptionalInt.empty();
     }
 
     public boolean has(T value) {

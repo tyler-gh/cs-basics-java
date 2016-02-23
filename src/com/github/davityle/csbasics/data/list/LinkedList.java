@@ -1,6 +1,6 @@
 package com.github.davityle.csbasics.data.list;
 
-import java.util.Optional;
+import java.util.OptionalInt;
 
 public class LinkedList<T> implements Queue<T>, Stack<T>, List<T> {
 
@@ -63,16 +63,18 @@ public class LinkedList<T> implements Queue<T>, Stack<T>, List<T> {
         return n.value;
     }
 
-    public Optional<Integer> indexOf(T value) {
+    public OptionalInt indexOf(T value) {
+        if(value == null)
+            throw new IllegalArgumentException("value must not be null");
         Node<T> n = headNode.next;
         int i = 0;
         while (n != null) {
             if (value.equals(n.value))
-                return Optional.of(i);
+                return OptionalInt.of(i);
             i++;
             n = n.next;
         }
-        return Optional.empty();
+        return OptionalInt.empty();
     }
 
     public boolean has(T value) {

@@ -3,6 +3,7 @@ package com.github.davityle.csbasics.data.list;
 import org.junit.Test;
 
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -60,22 +61,24 @@ public class ArrayListTest {
 
         BiConsumer<String, Integer> assertIndex = (song, index) -> {
             assertNotEquals(Optional.empty(), beatlesSongs.indexOf(song));
-            assertEquals(index, beatlesSongs.indexOf(song).get());
+            assertEquals((int)index, beatlesSongs.indexOf(song).getAsInt());
         };
 
         beatlesSongs.add("Hey Jude");
         beatlesSongs.add("Here Comes the Sun");
+        beatlesSongs.add(null);
         beatlesSongs.add("Come Together");
         beatlesSongs.add("Eleanor Rigby");
+        beatlesSongs.add(null);
         beatlesSongs.add("Yellow Submarine");
         beatlesSongs.add("All You Need Is Love");
 
         assertIndex.accept("Hey Jude", 0);
-        assertIndex.accept("Come Together", 2);
-        assertIndex.accept("Yellow Submarine", 4);
-        assertIndex.accept("Eleanor Rigby", 3);
+        assertIndex.accept("Come Together", 3);
+        assertIndex.accept("Yellow Submarine", 6);
+        assertIndex.accept("Eleanor Rigby", 4);
 
-        assertEquals(Optional.empty(), beatlesSongs.indexOf("We Will Rock You"));
+        assertEquals(OptionalInt.empty(), beatlesSongs.indexOf("We Will Rock You"));
     }
 
     @Test

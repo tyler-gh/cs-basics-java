@@ -2,10 +2,7 @@ package com.github.davityle.csbasics.data.list;
 
 import org.junit.Test;
 
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 import static org.junit.Assert.*;
@@ -94,19 +91,21 @@ public class LinkedListTest {
 
         BiConsumer<String, Integer> testIndexOf = (s, index) -> {
             linkedList.add(s);
-            assertEquals(index, linkedList.indexOf(s).get());
+            assertEquals(index+1, linkedList.indexOf(s).getAsInt());
         };
+
+        linkedList.add(null);
 
         for(int i = 0; i < 26; i++) {
             testIndexOf.accept(Character.toString((char) (i + 'a')), i);
         }
 
-        assertEquals(Integer.valueOf(1), linkedList.indexOf("b").get());
-        assertEquals(Integer.valueOf(25), linkedList.indexOf("z").get());
-        assertEquals(Integer.valueOf(23), linkedList.indexOf("x").get());
-        assertEquals(Integer.valueOf(3), linkedList.indexOf("d").get());
+        assertEquals((2), linkedList.indexOf("b").getAsInt());
+        assertEquals((26), linkedList.indexOf("z").getAsInt());
+        assertEquals((24), linkedList.indexOf("x").getAsInt());
+        assertEquals((4), linkedList.indexOf("d").getAsInt());
 
-        assertEquals(Optional.empty(), linkedList.indexOf("color"));
+        assertEquals(OptionalInt.empty(), linkedList.indexOf("color"));
     }
 
     @Test
