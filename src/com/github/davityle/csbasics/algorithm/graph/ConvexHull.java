@@ -51,7 +51,7 @@ public class ConvexHull {
         List<Graph.Vertex<T>> filtered = points.stream().filter(point -> distanceFromEdge(edge, point) > 0).collect(Collectors.toList());
 
         return filtered.stream()
-                .sorted((p1, p2) -> {
+                .min((p1, p2) -> {
                     double p1Distance = distanceFromEdge(edge, p1);
                     double p2Distance = distanceFromEdge(edge, p2);
                     if (p1Distance > p2Distance)
@@ -60,7 +60,6 @@ public class ConvexHull {
                         return 1;
                     return 0;
                 })
-                .findFirst()
                 .map(p -> {
                     List<Graph.Edge<T>> edges = new ArrayList<>();
                     edges.addAll(quickHull(new Graph.Edge<>(edge.a, p), filtered));

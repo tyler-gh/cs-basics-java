@@ -20,8 +20,8 @@ public class ConvexHullTest {
         SwingUtilities.invokeLater(() -> {
             GraphFrame frame = new GraphFrame("Convex Hull");
 
-            JTextField count = frame.textField("4000", "Count");
-            JTextField seed = frame.textField("900", "Seed");
+            JTextField count = frame.addTextField("4000", "Count");
+            JTextField seed = frame.addTextField("900", "Seed");
 
             JButton button = new JButton("Solve Convex Hull");
             frame.top.add(button);
@@ -30,14 +30,11 @@ public class ConvexHullTest {
 
                 Random random = new Random(intVal.apply(seed));
                 NameGenerator nameGenerator = new NameGenerator();
-                List<Graph.Vertex<String>> nodes = new ArrayList<>();
+                MatrixGraph<String> graph = new MatrixGraph<>();
 
                 for (int i = 0; i < intVal.apply(count); i++) {
-                    nodes.add(new Graph.Vertex<>(random.nextGaussian(), random.nextGaussian(), nameGenerator.getName()));
+                    graph.addVertex(new Graph.Vertex<>(random.nextGaussian(), random.nextGaussian(), nameGenerator.getName()));
                 }
-
-                MatrixGraph<String> graph = new MatrixGraph<>();
-                graph.addVertices(nodes);
 
                 long start = System.currentTimeMillis();
                 List<Graph.Edge<String>> edges = ConvexHull.outerMostPath(graph);

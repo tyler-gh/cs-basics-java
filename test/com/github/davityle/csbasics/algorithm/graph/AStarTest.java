@@ -10,11 +10,9 @@ import javax.swing.*;
 
 import static org.junit.Assert.*;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.function.*;
-import java.util.stream.Collectors;
 
 public class AStarTest {
 
@@ -136,13 +134,13 @@ public class AStarTest {
         SwingUtilities.invokeLater(() -> {
             GraphFrame frame = new GraphFrame("A*");
 
-            JTextField xMin = frame.textField("-9", "X-Min");
-            JTextField xMax = frame.textField("9", "X-Max");
-            JTextField yMin = frame.textField("-9", "Y-Min");
-            JTextField yMax = frame.textField("9", "Y-Max");
-            JTextField blockSize = frame.textField("3", "Block Size");
-            JTextField density = frame.textField("3", "Density");
-            JTextField seed = frame.textField("0", "Seed");
+            JTextField xMin = frame.addTextField("-9", "X-Min");
+            JTextField xMax = frame.addTextField("9", "X-Max");
+            JTextField yMin = frame.addTextField("-9", "Y-Min");
+            JTextField yMax = frame.addTextField("9", "Y-Max");
+            JTextField blockSize = frame.addTextField("3", "Block Size");
+            JTextField density = frame.addTextField("3", "Density");
+            JTextField seed = frame.addTextField("0", "Seed");
 
             JCheckBox checkBox = new JCheckBox("Matrix");
             frame.top.add(checkBox);

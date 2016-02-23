@@ -32,6 +32,4 @@ public class MergeSort {
 
         System.arraycopy(tmp, min, array, min, max - min);
     }
-
-
 }

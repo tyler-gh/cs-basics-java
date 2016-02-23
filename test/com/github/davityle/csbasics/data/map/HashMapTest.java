@@ -18,14 +18,14 @@ public class HashMapTest {
         LINEAR {
             @Override
             public <T, R> HashMap<T, R> instantiate() {
-                return new HashMapLinearProbing<>();
+                return new LinearProbingHashMap<>();
             }
         },
 
         QUADRATIC {
             @Override
             public <T, R> HashMap<T, R> instantiate() {
-                return new HashMapQuadraticProbing<>();
+                return new QuadraticProbingHashMap<>();
             }
         };
 

@@ -90,7 +90,6 @@ public class TreeNode<T> {
         final Queue<TreeNode<T>> queue = new LinkedList<>();
 
         private BreadthIterator() {
-            queue.add(TreeNode.this);
             queue.addAll(TreeNode.this.children.values());
         }
 
@@ -111,7 +110,6 @@ public class TreeNode<T> {
         final Stack<TreeNode<T>> stack = new Stack<>();
 
         private DepthIterator() {
-            stack.push(TreeNode.this);
             addChildren(TreeNode.this);
         }
 

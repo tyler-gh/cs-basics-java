@@ -33,7 +33,7 @@ class GraphFrame extends JFrame {
         setLocationByPlatform(true);
     }
 
-    public JTextField textField(String val, String title)  {
+    public JTextField addTextField(String val, String title)  {
         JTextField tf = new JTextField();
         tf.setText(val);
         Dimension size = new Dimension(45, 25);

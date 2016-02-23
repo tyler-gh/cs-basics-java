@@ -1,14 +1,15 @@
 package com.github.davityle.csbasics.data.map;
 
-public class HashMapLinearProbing<T, R> extends HashMap<T, R> {
+public class QuadraticProbingHashMap<T, R> extends HashMap<T, R> {
+
     @Override
     protected int getIndex(T key) {
         int hash = key.hashCode();
         int index = modLength(hash);
+        int count = 0;
         while (collision(index, hash, key)) {
-            if (++index == table.length) {
-                index = 0;
-            }
+            count++;
+            index = (index + count * count) % table.length;
         }
         return index;
     }
